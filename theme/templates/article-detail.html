@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}
+        Article Detail
+    {% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <!-- Font Awesome if you need it  -->
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.4.6/tailwind.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <style>
+        .gradient {
+            {##141e30 → #243b55#}
+            background: linear-gradient(90deg, #141e30 0%, #243b55 100%);
+        }
+        .gradient2 {
+            background: linear-gradient(#a1c4fd 0%, #c2e9fb 100%);
+        }
+        .gradient3 {
+            background: linear-gradient(90deg, #a1c4fd 0%, #c2e9fb 100%);
+        }
+    </style>
+</head>
+
+<body class="leading-normal tracking-normal text-black antialiased" style="font-family: 'Roboto', sans-serif;">
+<nav class="flex items-center bg-blue-500 p-3 flex-wrap">
+  <a class="toggleColour text-white no-underline hover:no-underline font-bold text-2xl lg:text-3xl" href="{% url 'home' %}">
+    <!--Icon from: http://www.potlabicons.com/ -->
+    <svg class="h-8 fill-current inline" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+      <style>@keyframes rotate{0%{transform:rotateZ(0)}to{transform:rotateZ(360deg)}}</style>
+      <g style="animation:rotate 3s cubic-bezier(.7,-.03,.26,1.05) both infinite;transform-origin:center center" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+        <path stroke="#0A0A30" d="M5.262 15.329l.486.842a1.49 1.49 0 002.035.55 1.486 1.486 0 012.036.529c.128.216.197.463.2.714a1.493 1.493 0 001.493 1.536h.979a1.486 1.486 0 001.485-1.493 1.493 1.493 0 011.493-1.471c.252.002.498.071.714.2a1.493 1.493 0 002.036-.55l.521-.857a1.493 1.493 0 00-.542-2.036 1.493 1.493 0 010-2.586c.71-.41.952-1.318.543-2.028l-.493-.85a1.493 1.493 0 00-2.036-.579 1.479 1.479 0 01-2.029-.543 1.428 1.428 0 01-.2-.714c0-.825-.668-1.493-1.492-1.493h-.98c-.82 0-1.488.664-1.492 1.486a1.485 1.485 0 01-1.493 1.493 1.521 1.521 0 01-.714-.2 1.493 1.493 0 00-2.036.542l-.514.858a1.486 1.486 0 00.543 2.035 1.486 1.486 0 01.543 2.036c-.13.226-.317.413-.543.543a1.493 1.493 0 00-.543 2.028v.008z" clip-rule="evenodd"/>
+      <path stroke="#265BFF" d="M12.044 10.147a1.853 1.853 0 100 3.706 1.853 1.853 0 000-3.706z"/>
+    </g>
+    </svg>      
+    Computer Engineering Classwork Repository
+  </a>
+      <button
+        class="text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto hover:text-white outline-none nav-toggler"
+        data-target="#navigation"
+      >
+        <i class="material-icons">menu</i>
+      </button>
+      <div
+        class="hidden top-navbar w-full lg:inline-flex lg:flex-grow lg:w-auto"
+        id="navigation"
+      >
+        <div
+          class="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto"
+        >
+          <a
+            href="{% url 'home' %}"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 hover:text-white"
+          >
+            <span>Home</span>
+          </a>
+          {% if user.is_authenticated %}
+          <a class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 hover:text-white" 
+             href={% url 'where-next' %}>
+             Dashboard</a>
+          <a
+            href="{% url 'logout' %}"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 hover:text-white"
+          >
+            <span>Logout</span>
+          </a>
+            {% else %}
+          <a
+            href="{% url 'login' %}"
+            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-gray-900 hover:text-white"
+          >
+            <span>LogIn</span>
+          </a>
+          {% endif %}
+{#          <a#}
+{#            href="#"#}
+{#            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"#}
+{#          >#}
+{#            <span>Gallery</span>#}
+{#          </a>#}
+{#          <a#}
+{#            href="#"#}
+{#            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"#}
+{#          >#}
+{#            <span>Products</span>#}
+{#          </a>#}
+{#          <a#}
+{#            href="#"#}
+{#            class="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-gray-400 items-center justify-center hover:bg-gray-900 hover:text-white"#}
+{#          >#}
+{#            <span>Contact Us</span>#}
+{#          </a>#}
+        </div>
+      </div>
+    </nav>
+{# MAIN DETAILS#}
+<div class="container mx-auto my-10 bg-white p-5 shadow-xl rounded-lg overflow-hidden ">
+    <div class="text-center">
+      <h3 class="mb-2 text-base text-teal-700 text-3xl hover:text-gray-700">
+        {% if article.issue_title %}
+            {{ article.issue_title }}
+        {% else %}
+            {{ article.title }}
+        {% endif %}
+    </h3>
+        <p class="text-left text-teal-700 text-xl"><strong>Abstract</strong></p>
+        <p class="text-grey-600 text text-left">{{ article.abstract }}</p>
+    </div>
+​   <div class="mt-4 text-teal-500">
+    <a href="{{ article.journal.get_absolute_url }}"><strong>Journal - </strong>{{ article.journal }}</a>
+    </div>
+    <div class="my-4">
+        <a  class="no-underline mr-4 text-teal-500 mb-1  item-center hover:text-blue-400"><strong>Vol.</strong>{{ article.volume }}</a>
+        <a  class="no-underline mr-4 text-teal-500 mb-1  item-center hover:text-blue-400"><strong>Issue.</strong> {{ article.issue }}</a>
+    </div>
+    <a  class="no-underline mr-4  text-teal-500 mb-1  item-center hover:text-blue-400"><strong>Published at</strong> {{ article.published_at }}</a>
+
+    <div class="mt-4">
+        {% if keywords.all %}
+            <p class="inline p-2 text-teal-500"><strong>Keywords</strong> - </p>
+        {% endif %}
+        {% for key in keywords.all %}
+            <a class="inline bg-teal-500 py-1 px-4 mx-1  rounded-full  text-white" href="#">{{ key }}</a>
+        {% endfor %}
+
+    </div>
+
+</div>
+{#ARTICLE TEXT#}
+<div class="container mx-auto">
+
+    <div class="bg-white p-10 shadow-xl hover:shadow-2xl transition delay-200 duration-100 ease-in-out rounded-lg overflow-hidden ">
+        <p><strong></strong></p>
+        {{ article.text|safe }}
+    </div>
+    <hr>
+{#    <strong>Time</strong>#}
+{#    <time datetime="2016-1-1">{{ article.published_at }}</time>#}
+</div>
+
+<footer class="my-12"> </footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function() {
+  $(".nav-toggler").each(function(_, navToggler) {
+    var target = $(navToggler).data("target");
+    $(navToggler).on("click", function() {
+      $(target).animate({
+        height: "toggle"
+      });
+    });
+  });
+});
+
+</body>
+</html>
